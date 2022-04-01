@@ -32,12 +32,12 @@ really a list containing a function to
     makeVector <- function(x = numeric()) {
             m <- NULL
             set <- function(y) {
-                    x <<- y
-                    m <<- NULL
+                    x <<- y         # Assign the input argument to the x object in the parent envi
+                    m <<- NULL      # Assign the NULL to the inv object in the parent envir
             }
-            get <- function() x
-            setmean <- function(mean) m <<- mean
-            getmean <- function() m
+            get <- function() x     # R retrieve the x from parent envir of makeCacheMatrix 
+            setmean <- function(mean) m <<- mean      # Assign the input argument to the m object
+            getmean <- function() m         # R retrieve the m from parent envir of makeCacheMatrix
             list(set = set, get = get,
                  setmean = setmean,
                  getmean = getmean)
@@ -103,3 +103,15 @@ In order to complete this assignment, you must do the following:
 ### Grading
 
 This assignment will be graded via peer assessment.
+
+Notes are copied from https://stackoverflow.com/questions/24904683/caching-the-mean-of-a-vector-in-r
+
+set <- function(y) {x <<- y; m <<- NULL} defines a function to set the vector, x, to a new vector, y, and resets the mean, m, to NULL
+
+get <- function() x returns the vector, x
+
+setmean <- function(mean) m <<- mean sets the mean, m, to mean
+
+getmean <- function() m returns the mean, m
+
+list(set = set, get = get,setmean = setmean,getmean = getmean)
