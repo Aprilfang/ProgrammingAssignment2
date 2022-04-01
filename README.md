@@ -102,16 +102,23 @@ In order to complete this assignment, you must do the following:
 
 ### Grading
 
+
 This assignment will be graded via peer assessment.
 
 Notes are copied from https://stackoverflow.com/questions/24904683/caching-the-mean-of-a-vector-in-r
 
-set <- function(y) {x <<- y; m <<- NULL} defines a function to set the vector, x, to a new vector, y, and resets the mean, m, to NULL
+set <- function(y) {x <<- y; m <<- NULL} 
+# defines a function to set the vector, x, to a new vector, y, and resets the mean, m, to NULL
+# This line of code clears any value of m that had been cached by a prior execution of cachemean().
 
 get <- function() x returns the vector, x
+# Since the symbol x is not defined within get(), R retrieves it from the parent environment of makeVector().
 
 setmean <- function(mean) m <<- mean sets the mean, m, to mean
-
+# Since m is defined in the parent environment and we need to access it after setmean() completes, the code uses the <<- form of the assignment operator to assign the input argument to the value of m in the parent environment.
 getmean <- function() m returns the mean, m
 
 list(set = set, get = get,setmean = setmean,getmean = getmean)
+
+cachemean <- function(x, ...) {
+# an ellipsis that allows the caller to pass additional arguments into the function
